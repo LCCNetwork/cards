@@ -22,14 +22,20 @@ import { ui } from "./reducers.js";
 import Navbar from "./components/Navbar.jsx";
 import Loader from "./components/Loader.jsx";
 
+import 'normalize.css'
+import flexbox from './styles/flexbox.scss'
+console.log(flexbox)
+
+import './modules/fontawesome.jsx'
+
 const history = createHistory();
 const routerMiddlewareHistory = routerMiddleware(history);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const firebaseConfig = {
-  apiKey: "REPLACEME_APIKEY",
-  authDomain: "REPLACEME_AUTHDOMAIN",
-  projectId: "REPLACEME_PROJECTID"
+  apiKey: "AIzaSyDXZxvFfx87uigcpeeQ_KtT7N10y7gPrF4",
+  authDomain: "lcc-cards.firebaseapp.com",
+  projectId: "lcc-cards"
 };
 
 const rrfConfig = {
@@ -74,22 +80,42 @@ let store = compose(
   composeEnhancers(applyMiddleware(routerMiddleware(history)))
 );
 
-const Dashboard = Loadable({
-  loader: () => import("./views/Dashboard.jsx"),
+const Home = Loadable({
+  loader: () => import("./views/Home/Home.jsx"),
   loading() {
     return <Loader />;
   }
 });
 
-const Login = Loadable({
-  loader: () => import("./views/Login.jsx"),
+// const Login = Loadable({
+//   loader: () => import("./views/Login.jsx"),
+//   loading() {
+//     return <Loader />;
+//   }
+// });
+//
+// const Logout = Loadable({
+//   loader: () => import("./views/Logout.jsx"),
+//   loading() {
+//     return <Loader />;
+//   }
+// });
+
+const GameSelection = Loadable({
+  loader: () => import("./views/GameSelection/GameSelection.jsx"),
   loading() {
     return <Loader />;
   }
 });
 
-const Logout = Loadable({
-  loader: () => import("./views/Logout.jsx"),
+const CreateGame = Loadable({
+  loader: () => import("./views/CreateGame/CreateGame.jsx"),
+  loading() {
+    return <Loader />;
+  }
+});
+const JoinGame = Loadable({
+  loader: () => import("./views/JoinGame/JoinGame.jsx"),
   loading() {
     return <Loader />;
   }
@@ -99,10 +125,12 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Navbar />
-        <Route exact path="/" component={Dashboard} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/logout" component={Logout} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/selection" component={GameSelection} />
+        <Route exact path="/create" component={CreateGame} />
+        <Route exact path="/join" component={JoinGame} />
+        {/*<Route exact path="/login" component={Login} />*/}
+        {/*<Route exact path="/logout" component={Logout} />*/}
       </div>
     </ConnectedRouter>
   </Provider>,
