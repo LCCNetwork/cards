@@ -122,6 +122,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-# Staging files
-staging/
